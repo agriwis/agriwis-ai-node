@@ -1,0 +1,45 @@
+{
+  "name": "agriwis-ai",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for the Agriwis (蜀农) AI API — OpenAI-compatible chat completions with built-in agricultural tools.",
+  "license": "MIT",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc -p tsconfig.build.json --module commonjs --moduleResolution node --outDir dist/cjs",
+    "build:esm": "tsc -p tsconfig.build.json --module es2022 --moduleResolution bundler --outDir dist/esm && node scripts/make-esm-package.cjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "agriwis",
+    "shunong",
+    "agriculture",
+    "ai",
+    "openai-compatible",
+    "chat-completions",
+    "sdk",
+    "typescript"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "typescript": "^5.5.4",
+    "vitest": "^2.1.1"
+  }
+}
