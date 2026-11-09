@@ -1,6 +1,6 @@
 {
   "name": "agriwis-ai",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "TypeScript SDK for the Agriwis (蜀农) AI API — OpenAI-compatible chat completions with built-in agricultural tools.",
   "license": "MIT",
   "main": "./dist/cjs/index.js",
