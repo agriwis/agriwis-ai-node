@@ -7,7 +7,7 @@ const knowledge = await client.chat.completions.create({
   model: 'auto',
   messages: [{ role: 'user', content: '水稻分蘖期应该如何管理水层？' }],
   tools: [
-    { type: 'agriwis_knowledge_search', query: '水稻分蘖期水分管理', top_k: 5, use_rerank: true },
+    { type: 'agriwis_knowledge_search', query: '水稻分蘖期水分管理', top_k: 5, score_threshold: 0.7, use_rerank: true },
   ],
   tool_choice: 'auto',
 });
@@ -38,17 +38,17 @@ const growth = await client.chat.completions.create({
       ],
     },
   ],
-  tools: [{ type: 'agriwis_crop_growth', recognition_type: 'wheat_stage', stage_detail: true }],
+  tools: [{ type: 'agriwis_crop_growth', recognition_type: 'wheat_stage' }],
   tool_choice: 'auto',
 });
 console.log(growth.choices[0]?.message.content);
 
-// 4. 获取当前时间：支持 IANA 时区与自定义格式
+// 4. 获取当前时间：支持 IANA 时区、自定义格式与二十四节气
 const time = await client.chat.completions.create({
   model: 'auto',
-  messages: [{ role: 'user', content: '现在几点？' }],
+  messages: [{ role: 'user', content: '现在几点？今年清明是哪天？' }],
   tools: [
-    { type: 'agriwis_get_current_time', format: 'yyyy-MM-dd HH:mm:ss', timezone: 'Asia/Shanghai' },
+    { type: 'agriwis_get_current_time', format: 'yyyy-MM-dd HH:mm:ss', timezone: 'Asia/Shanghai', with_solar_terms: true },
   ],
   tool_choice: 'auto',
 });

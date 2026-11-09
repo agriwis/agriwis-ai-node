@@ -34,7 +34,7 @@ describe('chat.completions.create（非流式）', () => {
     expect(completion.usage?.total_tokens).toBe(22);
 
     const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
-    expect(url).toBe('https://ai.agriwis.com/api/v1/chat/completions');
+    expect(url).toBe('https://ai.agriwis.com/v1/chat/completions');
     expect(init.method).toBe('POST');
     const headers = init.headers as Record<string, string>;
     expect(headers['authorization']).toBe('Bearer sk-test');

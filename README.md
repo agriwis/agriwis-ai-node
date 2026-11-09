@@ -36,7 +36,7 @@ console.log(completion.choices[0]?.message.content);
 ```ts
 const client = new Agriwis({
   apiKey: 'My API Key',                       // 默认按序读取 AGRIWIS_API_KEY、SHUNONG_API_KEY
-  baseURL: 'https://ai.agriwis.com/api/v1',   // 默认值
+  baseURL: 'https://ai.agriwis.com/v1',       // 默认值
   timeout: 60_000,                            // 单次请求超时（毫秒）
   maxRetries: 2,                              // 408/429/5xx 自动重试次数
   defaultHeaders: { 'x-app-id': 'demo' },     // 附加自定义请求头
@@ -99,20 +99,21 @@ await client.chat.completions.create({
     type: 'agriwis_knowledge_search',
     query: '水稻分蘖期水分管理', // 必填
     top_k: 5,                    // 可选，默认 5，上限 20
-    min_score: 0.5,              // 可选，相关度阈值
+    score_threshold: 0.7,        // 可选，相关度阈值，仅对向量/精排阶段生效
     use_rerank: true,            // 可选，重排序
   }],
   tool_choice: 'auto',
 });
 
-// 天气搜索
-{ type: 'agriwis_weather_search', location: '武汉', date: 'forecast', unit: 'celsius' }
+// 天气搜索：支持城市/区县/9 位编码，或 latitude + longitude 坐标
+{ type: 'agriwis_weather_search', location: '武汉', date: 'forecast' }
+{ type: 'agriwis_weather_search', latitude: 30.67, longitude: 104.07, province: '四川' }
 
 // 生长周期识别（配合多模态图片输入）
-{ type: 'agriwis_crop_growth', recognition_type: 'wheat_stage', stage_detail: true }
+{ type: 'agriwis_crop_growth', recognition_type: 'wheat_stage' }
 
-// 获取当前时间
-{ type: 'agriwis_get_current_time', format: 'yyyy-MM-dd HH:mm:ss', timezone: 'Asia/Shanghai' }
+// 获取当前时间；with_solar_terms 可返回整年二十四节气
+{ type: 'agriwis_get_current_time', format: 'yyyy-MM-dd HH:mm:ss', timezone: 'Asia/Shanghai', with_solar_terms: true }
 ```
 
 工具用量统计位于 `usage.agriwis_*_usage`（`tool_usage` / `chunk_usage`）。

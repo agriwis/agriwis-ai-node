@@ -8,7 +8,7 @@ export interface ClientOptions {
    * 仅应在可信的后端环境使用；浏览器端请求会暴露密钥。
    */
   apiKey?: string;
-  /** API 基础地址，默认 https://ai.agriwis.com/api/v1 */
+  /** API 基础地址，默认 https://ai.agriwis.com/v1 */
   baseURL?: string;
   /** 单次请求超时时间（毫秒），默认 60000 */
   timeout?: number;
@@ -20,7 +20,7 @@ export interface ClientOptions {
   fetch?: Fetch;
 }
 
-export const DEFAULT_BASE_URL = 'https://ai.agriwis.com/api/v1';
+export const DEFAULT_BASE_URL = 'https://ai.agriwis.com/v1';
 export const DEFAULT_TIMEOUT = 60_000;
 export const DEFAULT_MAX_RETRIES = 2;
 

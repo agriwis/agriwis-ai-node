@@ -104,7 +104,11 @@ export interface KnowledgeCitation {
   summary: string;
   /** 条目分类，如 crop（作物） */
   category: string;
-  /** 相关性评分（0-1） */
+  /**
+   * 相关性分数，语义随检索模式变化：
+   * 精排（rerank）为 0-1 精排相关度；混合检索（hybrid）为 RRF 分数（约 0.01~0.03，仅用于排序）；
+   * 纯向量降级为 0-1 余弦相似度。不同模式间不可比较。
+   */
   score: number;
 }
 
